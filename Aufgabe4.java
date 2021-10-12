@@ -1,4 +1,5 @@
-import javax.swing.*; 
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.*;
 
 public class Aufgabe4 {
@@ -15,30 +16,31 @@ public class Aufgabe4 {
   public void initializeFrame(){
 
     // Setup default frame
-    JFrame frame = new JFrame("My First GUI");
+    JFrame frame = new JFrame("My Menu Button App");
     frame.setSize(480,480);
     frame.setResizable(false);
-    frame.setVisible(true);
     frame.setLocationRelativeTo(null);
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
     // Create MenuBar elements and and the menuBar to the frame
     JMenuBar menuBar = new JMenuBar();
 
-    JMenu menuFile = 
-      new JMenu("File");
-    JMenu menuHelp = 
-      new JMenu("Help");
+    JMenu menuFile = new JMenu("File");
+    JMenu menuHelp = new JMenu("Help");
     
     menuBar.add(menuFile);
     menuBar.add(menuHelp);
 
-    JMenuItem menuFileItemOpen = 
-		new JMenuItem("Open");
-	
-	  menuFile.add(menuFileItemOpen);
+    JMenuItem menuFileItemOpen = new JMenuItem("Open");
+    menuFile.add(menuFileItemOpen);
 
     frame.setJMenuBar(menuBar);
+
+    // Layout
+
+    // Create/Setup panel
+    JPanel content = new JPanel(new GridBagLayout());
+    GridBagConstraints gbc = new GridBagConstraints();
 
     // Setup labels and a button (=elements)
     labelA = new JLabel("Ich kann zeichnen ...", SwingConstants.CENTER);
@@ -51,21 +53,31 @@ public class Aufgabe4 {
     button.setAlignmentX(JButton.LEFT_ALIGNMENT);
     button.addActionListener(new ClickListener());
 
-    // Create/Setup panel and add elements to it -> Add panel to frame
-    JPanel panel = new JPanel();
-    panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+    // Layout + Adding components to the "content" panel
+    gbc.insets = new Insets(10, 10, 10, 10);
+    gbc.fill = GridBagConstraints.HORIZONTAL;
+    gbc.gridx = 0;
+    gbc.gridy = 0;
+    content.add(labelA, gbc);
+    gbc.fill = GridBagConstraints.HORIZONTAL;
+    gbc.gridx = 0;
+    gbc.gridy = 1;
+    content.add(button, gbc);
+    gbc.fill = GridBagConstraints.HORIZONTAL;
+    gbc.gridx = 0;
+    gbc.gridy = 2;
+    content.add(labelB, gbc);
 
-    panel.add(labelA);
-    panel.add(button);
-    panel.add(labelB);
-  
-    frame.add(panel);
+    // Add panel to the frame and make it visible
+    frame.add(content);
+    // THIS MUST STAY AT THE VERY END111!!
+    frame.setVisible(true);
   }
 
   class ClickListener implements ActionListener{
     public void actionPerformed(ActionEvent event){
-        labelB.setText("Du hast mich zum " + String.valueOf(labelB_Counter) +"-mal gedrückt!");
         labelB_Counter += 1;
+        labelB.setText("Du hast mich zum " + String.valueOf(labelB_Counter) +"-mal gedrückt!");
     }
 }
 }
