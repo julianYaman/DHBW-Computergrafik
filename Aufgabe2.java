@@ -8,6 +8,6 @@ public class Aufgabe2 {
     frame.setSize(480,480);
     frame.setResizable(false);
     frame.setVisible(true);
-  frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
   }
 }
